@@ -1,0 +1,10 @@
+work_order_id,asset,description,likelihood,impact,downtime_hours,safety_critical,age_days
+WO-1001,Boiler-2,Pressure valve inspection,5,5,8,yes,12
+WO-1002,Conveyor-A,Replace worn belt,4,3,4,no,20
+WO-1003,HVAC-7,Filter replacement,2,2,1,no,5
+WO-1004,Generator-1,Fuel leak investigation,5,5,12,yes,3
+WO-1005,Pump-4,Vibration above normal range,4,4,6,yes,9
+WO-1006,Lighting-B,Replace hallway light panel,1,2,0.5,no,30
+WO-1007,Compressor-3,Air pressure drop during operation,3,5,5,no,14
+BAD-ROW,,Missing asset should be skipped,3,3,2,no,4
+WO-1008,Crane-2,Invalid likelihood should be skipped,9,4,3,yes,2

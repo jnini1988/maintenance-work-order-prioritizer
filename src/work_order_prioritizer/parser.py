@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Union
 
 from work_order_prioritizer.models import WorkOrder
 
@@ -76,7 +76,7 @@ def parse_row(row: dict[str, str]) -> WorkOrder:
     )
 
 
-def parse_work_orders(path: str | Path) -> tuple[list[WorkOrder], list[str]]:
+def parse_work_orders(path: Union[str, Path]) -> tuple[list[WorkOrder], list[str]]:
     """Read work orders from a CSV file.
 
     Returns valid work orders and warning messages for skipped rows.

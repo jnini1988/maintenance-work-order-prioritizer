@@ -38,3 +38,24 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
+
+## Run the CLI
+
+Print the report to the terminal
+
+```bash
+PYTHONPATH=src python3 -m work_order_prioritizer.cli data/sample_work_orders.csv
+```
+
+Save the report to a Markdown file named sample_report.md:
+
+```bash
+PYTHONPATH=src python3 -m work_order_prioritizer.cli data/sample_work_orders.csv -o reports/sample_report.md
+```
+
+## Run Tests and Checks
+
+```bash
+python3 -m pytest -v
+python3 -m bandit -r src
+```

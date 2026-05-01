@@ -7,8 +7,8 @@
 
 ## Priority Counts
 
-- Critical: 2
-- High: 1
+- Critical: 1
+- High: 2
 - Medium: 2
 - Low: 2
 
@@ -16,15 +16,15 @@
 
 | Rank | Work Order | Asset | Level | Score | Description |
 |---:|---|---|---|---:|---|
-| 1 | WO-1004 | Generator-1 | Critical | 41.3 | Fuel leak investigation |
-| 2 | WO-1001 | Boiler-2 | Critical | 40.2 | Pressure valve inspection |
-| 3 | WO-1005 | Pump-4 | High | 29.9 | Vibration above normal range |
-| 4 | WO-1007 | Compressor-3 | Medium | 18.9 | Air pressure drop during operation |
-| 5 | WO-1002 | Conveyor-A | Medium | 16.0 | Replace worn belt |
-| 6 | WO-1006 | Lighting-B | Low | 5.2 | Replace hallway light panel |
-| 7 | WO-1003 | HVAC-7 | Low | 5.0 | Filter replacement |
+| 1 | WO1001 | Boiler2 | Critical | 15.9 | Pressure valve inspection |
+| 2 | WO1004 | Generator1 | High | 14.8 | Fuel leak investigation |
+| 3 | WO1005 | Pump4 | High | 12.1 | Vibration above normal range |
+| 4 | WO1007 | Compressor3 | Medium | 7.4 | Air pressure drop during operation |
+| 5 | WO1002 | ConveyorA | Medium | 6.1 | Replace worn belt |
+| 6 | WO1006 | LightingB | Low | 3.4 | Replace hallway light panel |
+| 7 | WO1003 | HVAC7 | Low | 1.1 | Filter replacement |
 
 ## Warnings
 
 - Skipped line 9: asset is required
-- Skipped line 10: likelihood must be between 1 and 5
+- Skipped line 10: likelihood must be between 0.0 and 1.0

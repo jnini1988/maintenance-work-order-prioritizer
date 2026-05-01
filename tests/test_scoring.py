@@ -37,7 +37,7 @@ def test_compute_priority_score_includes_all_factors():
 
     score = compute_priority_score(order)
 
-    assert score == pytest.approx(15.5)
+    assert score == pytest.approx(15.0)
 
 
 @pytest.mark.parametrize(

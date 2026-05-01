@@ -1,10 +1,10 @@
-work_order_id,asset,description,likelihood,impact,downtime_hours,safety_critical,age_days
-WO-1001,Boiler-2,Pressure valve inspection,0.95,5,8,10,12
-WO-1002,Conveyor-A,Replace worn belt,0.70,3,4,2,20
-WO-1003,HVAC-7,Filter replacement,0.30,2,1,0,5
-WO-1004,Generator-1,Fuel leak investigation,0.90,5,12,10,3
-WO-1005,Pump-4,Vibration above normal range,0.80,4,6,8,9
-WO-1006,Lighting-B,Replace hallway light panel,0.20,2,0.5,0,30
-WO-1007,Compressor-3,Air pressure drop during operation,0.60,5,5,3,14
-BAD-ROW,,Missing asset should be skipped,0.50,3,2,0,4
-WO-1008,Crane-2,Invalid likelihood should be skipped,1.5,4,3,10,2
+work_order_id,asset,description,likelihood,impact,safety_critical,age_days
+WO1001,Boiler2,Pressure valve inspection,0.95,5,10,12
+WO1002,ConveyorA,Replace worn belt,0.70,3,2,20
+WO1003,HVAC7,Filter replacement,0.30,2,0,5
+WO1004,Generator1,Fuel leak investigation,0.90,5,10,3
+WO1005,Pump4,Vibration above normal range,0.80,4,8,9
+WO1006,LightingB,Replace hallway light panel,0.20,2,0,30
+WO1007,Compressor3,Air pressure drop during operation,0.60,5,3,14
+BADROW,,Missing asset should be skipped,0.50,3,0,4
+WO1008,Crane2,Invalid likelihood should be skipped,1.5,4,10,2

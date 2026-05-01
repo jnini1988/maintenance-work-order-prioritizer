@@ -4,7 +4,7 @@ A Python command-line tool that reads maintenance work orders from a CSV file, v
 
 ## Problem
 
-Maintenance teams often need to decide which work orders should be handled first. This project provides a simple way to rank work orders based on likelihood, impact, downtime, safety criticality, and age.
+Maintenance teams often need to decide which work orders should be handled first. This project provides a simple way to rank work orders based on likelihood, impact, safety criticality, and age.
 
 ## Planned Features
 
@@ -18,11 +18,19 @@ Maintenance teams often need to decide which work orders should be handled first
 
 ## Input Format
 
-The input CSV will include:
+The input CSV includes these required fields and constraints:
 
 ```text
-work_order_id,asset,description,likelihood,impact,downtime_hours,safety_critical,age_days
+work_order_id,asset,description,likelihood,impact,safety_critical,age_days
 ```
+
+- `work_order_id`: unique alphanumeric identifier
+- `asset`: alphanumeric value
+- `description`: maximum 250 characters
+- `likelihood`: float in the range 0 to 1 (inclusive)
+- `impact`: integer in the range 1 to 5 (inclusive)
+- `safety_critical`: integer in the range 0 to 10 (inclusive)
+- `age_days`: non-negative integer
 
 ## Setup
 

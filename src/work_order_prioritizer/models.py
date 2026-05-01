@@ -10,7 +10,6 @@ class WorkOrder:
     description: str
     likelihood: float
     impact: int
-    downtime_hours: float
     safety_critical: int
     age_days: int
 

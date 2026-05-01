@@ -5,7 +5,6 @@ def compute_priority_score(order: WorkOrder) -> float:
     """Compute a transparent priority score for a validated work order."""
     return (
         order.likelihood * order.impact
-        + order.downtime_hours * 0.5
         + order.safety_critical
         + order.age_days * 0.1
     )

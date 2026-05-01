@@ -9,11 +9,10 @@ def make_prioritized_order() -> PrioritizedWorkOrder:
         description="Inspect seal",
         likelihood=0.5,
         impact=4,
-        downtime_hours=2,
         safety_critical=0,
         age_days=5,
     )
-    return PrioritizedWorkOrder(work_order=order, score=13.5, level="Low")
+    return PrioritizedWorkOrder(work_order=order, score=2.5, level="Low")
 
 
 def test_generate_markdown_report_includes_summary_and_ranked_order():
@@ -24,7 +23,7 @@ def test_generate_markdown_report_includes_summary_and_ranked_order():
     assert "# Maintenance Work Order Priority Report" in report
     assert "- Valid work orders: 1" in report
     assert "- Skipped rows: 0" in report
-    assert "| 1 | WO-1 | Pump | Low | 13.5 | Inspect seal |" in report
+    assert "| 1 | WO-1 | Pump | Low | 2.5 | Inspect seal |" in report
 
 
 def test_generate_markdown_report_includes_priority_counts():

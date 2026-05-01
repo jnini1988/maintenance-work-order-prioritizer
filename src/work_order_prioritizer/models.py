@@ -8,10 +8,10 @@ class WorkOrder:
     work_order_id: str
     asset: str
     description: str
-    likelihood: int
+    likelihood: float
     impact: int
     downtime_hours: float
-    safety_critical: bool
+    safety_critical: int
     age_days: int
 
 

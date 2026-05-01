@@ -7,10 +7,10 @@ def make_prioritized_order() -> PrioritizedWorkOrder:
         work_order_id="WO-1",
         asset="Pump",
         description="Inspect seal",
-        likelihood=3,
+        likelihood=0.5,
         impact=4,
         downtime_hours=2,
-        safety_critical=False,
+        safety_critical=0,
         age_days=5,
     )
     return PrioritizedWorkOrder(work_order=order, score=13.5, level="Low")

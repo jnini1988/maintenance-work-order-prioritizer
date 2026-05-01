@@ -4,7 +4,6 @@ from typing import Iterable, Union
 
 from work_order_prioritizer.models import WorkOrder
 
-
 REQUIRED_COLUMNS = {
     "work_order_id",
     "asset",
@@ -16,7 +15,6 @@ REQUIRED_COLUMNS = {
     "age_days",
 }
 
-
 def parse_bool(value: str) -> bool:
     """Parse a yes/no style field into a boolean."""
     normalized = value.strip().lower()
@@ -26,6 +24,12 @@ def parse_bool(value: str) -> bool:
         return False
     raise ValueError(f"expected yes/no value, got {value!r}")
 
+def parse_float_in_range(value: str, field_name: str, minimum: float, maximum: float) -> float:
+    """Parse a float and validate that it is within an inclusive range."""
+    parsed = float(value)
+    if parsed < minimum or parsed > maximum:
+        raise ValueError(f"{field_name} must be between {minimum} and {maximum}")
+    return parsed
 
 def parse_int_in_range(value: str, field_name: str, minimum: int, maximum: int) -> int:
     """Parse an integer and validate that it is within an inclusive range."""
@@ -33,7 +37,6 @@ def parse_int_in_range(value: str, field_name: str, minimum: int, maximum: int) 
     if parsed < minimum or parsed > maximum:
         raise ValueError(f"{field_name} must be between {minimum} and {maximum}")
     return parsed
-
 
 def parse_nonnegative_float(value: str, field_name: str) -> float:
     """Parse a nonnegative floating-point number."""
@@ -68,11 +71,11 @@ def parse_row(row: dict[str, str]) -> WorkOrder:
         work_order_id=work_order_id,
         asset=asset,
         description=description,
-        likelihood=parse_int_in_range(row["likelihood"], "likelihood", 1, 5),
+        likelihood=parse_float_in_range(row["likelihood"], "likelihood", 0.0, 1.0),
         impact=parse_int_in_range(row["impact"], "impact", 1, 5),
-        downtime_hours=parse_nonnegative_float(row["downtime_hours"], "downtime_hours"),
-        safety_critical=parse_bool(row["safety_critical"]),
-        age_days=parse_nonnegative_int(row["age_days"], "age_days"),
+        downtime_hours=parse_float_in_range(row["downtime_hours"], "downtime_hours", 0.0, 1000.0),
+        safety_critical=parse_int_in_range(row["safety_critical"], "safety_critical", 0, 10),
+        age_days=parse_int_in_range(row["age_days"], "age_days", 0, 10000),
     )
 
 

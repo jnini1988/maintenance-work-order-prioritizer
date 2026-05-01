@@ -6,7 +6,7 @@ def compute_priority_score(order: WorkOrder) -> float:
     return (
         order.likelihood * order.impact
         + order.safety_critical
-        + order.age_days * 0.1
+        + order.age_days * 0.2
     )
 
 

@@ -9,8 +9,11 @@ def test_run_returns_markdown_report_for_sample_data():
     assert "# Maintenance Work Order Priority Report" in report
     assert "- Valid work orders: 7" in report
     assert "- Skipped rows: 2" in report
-    assert "WO-1004" in report
+    assert "WO1004" in report
     assert "Fuel leak investigation" in report
+    assert "## Warnings" in report
+    assert "asset is required" in report
+    assert "likelihood must be between 0.0 and 1.0" in report
 
 
 def test_run_writes_report_to_output_file(tmp_path: Path):

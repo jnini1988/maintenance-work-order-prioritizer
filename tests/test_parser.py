@@ -66,6 +66,12 @@ def test_parse_float_in_range_rejects_invalid_likelihood(bad_value: str):
         parse_float_in_range(bad_value, "likelihood", 0.0, 1.0)
 
 
+@pytest.mark.parametrize("bad_value", ["nan", "inf", "-inf"])
+def test_parse_float_in_range_rejects_non_finite_values(bad_value: str):
+    with pytest.raises(ValueError, match="must be a finite number"):
+        parse_float_in_range(bad_value, "likelihood", 0.0, 1.0)
+
+
 @pytest.mark.parametrize("bad_value", ["0", "6"])
 def test_parse_int_in_range_rejects_invalid_impact(bad_value: str):
     with pytest.raises(ValueError):
@@ -147,6 +153,14 @@ def test_parse_row_rejects_non_numeric_values(field: str):
         parse_row(row)
 
 
+def test_parse_row_rejects_nan_likelihood():
+    row = valid_row()
+    row["likelihood"] = "nan"
+
+    with pytest.raises(ValueError, match="must be a finite number"):
+        parse_row(row)
+
+
 def test_parse_work_orders_returns_warning_for_empty_csv(tmp_path: Path):
     csv_path = tmp_path / "empty.csv"
     csv_path.write_text("", encoding="utf-8")
@@ -188,3 +202,14 @@ def test_parse_work_orders_skips_duplicate_ids_with_line_number(tmp_path: Path):
     assert valid_orders[0].work_order_id == "WO1"
     assert len(warnings) == 1
     assert warnings[0] == "Skipped line 3: work_order_id must be unique; duplicate 'WO1'"
+
+
+def test_parse_work_orders_returns_file_level_error_for_missing_file(tmp_path: Path):
+    missing_path = tmp_path / "does_not_exist.csv"
+
+    valid_orders, warnings = parse_work_orders(missing_path)
+
+    assert valid_orders == []
+    assert len(warnings) == 1
+    assert str(missing_path) in warnings[0]
+    assert "Unable to read CSV file" in warnings[0]

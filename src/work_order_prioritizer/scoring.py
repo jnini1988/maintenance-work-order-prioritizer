@@ -23,14 +23,16 @@ def assign_priority_level(score: float) -> str:
 
 def prioritize_work_orders(orders: list[WorkOrder]) -> list[PrioritizedWorkOrder]:
     """Return work orders sorted from highest to lowest priority."""
-    prioritized = [
-        PrioritizedWorkOrder(
-            work_order=order,
-            score=compute_priority_score(order),
-            level=assign_priority_level(compute_priority_score(order)),
+    prioritized: list[PrioritizedWorkOrder] = []
+    for order in orders:
+        score = compute_priority_score(order)
+        prioritized.append(
+            PrioritizedWorkOrder(
+                work_order=order,
+                score=score,
+                level=assign_priority_level(score),
+            )
         )
-        for order in orders
-    ]
 
     return sorted(
         prioritized,

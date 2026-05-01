@@ -1,4 +1,5 @@
 import csv
+import math
 import re
 from pathlib import Path
 from typing import Iterable, Union
@@ -18,6 +19,8 @@ REQUIRED_COLUMNS = {
 def parse_float_in_range(value: str, field_name: str, minimum: float, maximum: float) -> float:
     """Parse a float and validate that it is within an inclusive range."""
     parsed = float(value)
+    if not math.isfinite(parsed):
+        raise ValueError(f"{field_name} must be a finite number")
     if parsed < minimum or parsed > maximum:
         raise ValueError(f"{field_name} must be between {minimum} and {maximum}")
     return parsed
@@ -77,31 +80,34 @@ def parse_work_orders(path: Union[str, Path]) -> tuple[list[WorkOrder], list[str
     warnings: list[str] = []
     seen_work_order_ids: set[str] = set()
 
-    with csv_path.open(newline="", encoding="utf-8") as file:
-        reader = csv.DictReader(file)
+    try:
+        with csv_path.open(newline="", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
 
-        if reader.fieldnames is None:
-            return [], ["CSV file is empty"]
+            if reader.fieldnames is None:
+                return [], ["CSV file is empty"]
 
-        missing_columns = REQUIRED_COLUMNS.difference(reader.fieldnames)
-        if missing_columns:
-            missing = ", ".join(sorted(missing_columns))
-            return [], [f"CSV is missing required columns: {missing}"]
+            missing_columns = REQUIRED_COLUMNS.difference(reader.fieldnames)
+            if missing_columns:
+                missing = ", ".join(sorted(missing_columns))
+                return [], [f"CSV is missing required columns: {missing}"]
 
-        for line_number, row in enumerate(reader, start=2):
-            try:
-                parsed_order = parse_row(row)
-                if parsed_order.work_order_id in seen_work_order_ids:
-                    warnings.append(
-                        f"Skipped line {line_number}: work_order_id must be unique; "
-                        f"duplicate {parsed_order.work_order_id!r}"
-                    )
-                    continue
+            for line_number, row in enumerate(reader, start=2):
+                try:
+                    parsed_order = parse_row(row)
+                    if parsed_order.work_order_id in seen_work_order_ids:
+                        warnings.append(
+                            f"Skipped line {line_number}: work_order_id must be unique; "
+                            f"duplicate {parsed_order.work_order_id!r}"
+                        )
+                        continue
 
-                seen_work_order_ids.add(parsed_order.work_order_id)
-                valid_orders.append(parsed_order)
-            except (KeyError, TypeError, ValueError) as exc:
-                warnings.append(f"Skipped line {line_number}: {exc}")
+                    seen_work_order_ids.add(parsed_order.work_order_id)
+                    valid_orders.append(parsed_order)
+                except (KeyError, TypeError, ValueError) as exc:
+                    warnings.append(f"Skipped line {line_number}: {exc}")
+    except (OSError, UnicodeDecodeError, csv.Error) as exc:
+        return [], [f"Unable to read CSV file {csv_path}: {exc}"]
 
     return valid_orders, warnings
 
